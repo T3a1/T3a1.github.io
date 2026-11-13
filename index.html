@@ -1,0 +1,32 @@
+---
+layout: null
+permalink: /
+sitemap: false
+---
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Léandre Fouret</title>
+  <meta name="description" content="Léandre Fouret, étudiant en systèmes et réseaux à Epitech Lille.">
+  <link rel="alternate" hreflang="fr" href="{{ '/fr/' | absolute_url }}">
+  <link rel="alternate" hreflang="en" href="{{ '/en/' | absolute_url }}">
+  <link rel="canonical" href="{{ '/fr/' | absolute_url }}">
+  <script>
+    (function () {
+      var lang = null;
+      try { lang = localStorage.getItem('leandre-lang'); } catch (e) {}
+      if (lang !== 'fr' && lang !== 'en') {
+        lang = (navigator.language || 'fr').toLowerCase().indexOf('fr') === 0 ? 'fr' : 'en';
+      }
+      location.replace('{{ "/" | relative_url }}' + lang + '/');
+    })();
+  </script>
+  <noscript><meta http-equiv="refresh" content="0; url={{ '/fr/' | relative_url }}"></noscript>
+  <style>body{margin:0;padding:2em 16px;font:15px/1.6 ui-monospace,Menlo,Consolas,monospace;background:#f4f5f2;color:#23272a}a{color:#0b6772}@media(prefers-color-scheme:dark){body{background:#121514;color:#c9cec9}a{color:#74c6cf}}</style>
+</head>
+<body>
+  <p><a href="{{ '/fr/' | relative_url }}">leandre(1) en français</a> · <a href="{{ '/en/' | relative_url }}" lang="en">leandre(1) in English</a></p>
+</body>
+</html>

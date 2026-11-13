@@ -1,0 +1,84 @@
+---
+lang: en
+ref: r-type
+man: r-type
+section: "6"
+title: R-Type
+description: Networked multiplayer shooter in C++20, with a binary UDP protocol, an authoritative server, and client-side prediction and interpolation.
+permalink: /en/projects/r-type/
+---
+<section>
+  <h2>NAME</h2>
+  <div class="body"><p><b>r-type</b> — networked multiplayer shooter for up to 4 players</p></div>
+</section>
+
+<section>
+  <h2>SYNOPSIS</h2>
+  <div class="body">
+    <p class="synopsis"><b>./rtype.py</b> <span class="opt">[<b>--native</b>]</span> <span class="opt">[<b>-c</b> <span class="u">clients</span>]</span></p>
+    <p class="synopsis"><b>./rtype.py --server-only</b> <span class="opt">[<b>--native</b>]</span></p>
+    <p class="synopsis"><b>./rtype.py --clients-only -H</b> <span class="u">host</span></p>
+  </div>
+</section>
+
+<section>
+  <h2>DESCRIPTION</h2>
+  <div class="body">
+    <p>A networked remake of the 1987 arcade game, built in third year by a team of four. Up
+      to four players team up against waves of enemies and bosses. The server is the only judge
+      of the game: clients send it their inputs and draw the state it sends back. The game runs
+      on Linux and Windows.</p>
+  </div>
+</section>
+
+<section>
+  <h2>ROLE</h2>
+  <div class="body">
+    <p>I laid the foundations of the client, the server and the first ECS, then designed the
+      protocol and the network layer. I wrote the client-side interpolation and prediction, the
+      rooms and lobby, the server's admin console, the chat, the end of game, the CI and the
+      <code>rtype.py</code> launcher. I authored about 140 of the 340 commits.</p>
+  </div>
+</section>
+
+<section>
+  <h2>DESIGN</h2>
+  <div class="body">
+    <ul class="list">
+      <li><b>Binary protocol over UDP.</b> 12-byte header, 16-byte entity records, datagrams of
+        at most 1200 bytes so IP never fragments them. Every field is read and checked one by
+        one: a malformed packet is dropped whole.</li>
+      <li><b>Reliability where it matters.</b> Events (joining, chat, game over) are numbered
+        and acknowledged. Snapshots and inputs are not: a late state is useless anyway.</li>
+      <li><b>Authoritative server.</b> 60 ticks and 20 snapshots per second. Networking runs on
+        its own thread and talks to the game loop only through queues.</li>
+      <li><b>Latency compensation.</b> The client interpolates between snapshots and predicts
+        the player's own moves. The delay between a key press and its display drops to zero,
+        even with 100 ms of latency (figure below).</li>
+      <li><b>Deployment.</b> The server is a static binary in a <code>scratch</code> Docker
+        image, running as <code>nobody</code>.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>FIGURE</h2>
+  <div class="body">
+    <figure>
+      <img src="{{ '/assets/img/r-type-delay.png' | relative_url }}" width="1080" height="480" loading="lazy"
+           alt="Bar chart of the median input-to-display delay under ten network conditions. Without compensation and with interpolation alone it ranges from 46 to 347 ms; with interpolation and prediction it is 0 ms everywhere.">
+      <figcaption>Median delay between a key press and its display on a simulated network:
+        no compensation (blue), interpolation (orange), interpolation and prediction (green, 0 ms).</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <h2>SEE ALSO</h2>
+  <div class="body">
+    <p><a href="https://github.com/T3a1/RType-mirror">GitHub repository</a>,
+      <a href="https://t3a1.github.io/RType-mirror/">documentation</a>,
+      <a href="{{ '/en/projects/zappy/' | relative_url }}">zappy(6)</a>,
+      <a href="{{ '/en/' | relative_url }}">leandre(1)</a></p>
+  </div>
+</section>

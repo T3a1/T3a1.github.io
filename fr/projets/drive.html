@@ -1,0 +1,60 @@
+---
+lang: fr
+ref: drive
+man: drive
+section: "8"
+title: Drive familial
+description: Stockage auto-hébergé pour la famille sur un Raspberry Pi avec OpenMediaVault, accès distant par VPN WireGuard et sauvegardes automatiques.
+permalink: /fr/projets/drive/
+---
+<section>
+  <h2>NOM</h2>
+  <div class="body"><p><b>drive</b> — stockage familial auto-hébergé</p></div>
+</section>
+
+<section>
+  <h2>SYNOPSIS</h2>
+  <div class="body">
+    <p class="synopsis"><b>wg-quick up</b> <span class="u">drive</span></p>
+  </div>
+</section>
+
+<section>
+  <h2>DESCRIPTION</h2>
+  <div class="body">
+    <p>Projet personnel. Avec ma famille, nous voulions ne plus dépendre d'un cloud externe et
+      avoir autant d'espace que nécessaire. J'ai monté un NAS sur un Raspberry Pi, que chacun
+      utilise depuis la maison comme depuis l'extérieur.</p>
+<pre class="diagram" aria-label="Schéma : à la maison, les appareils accèdent directement au NAS ; à l'extérieur, ils passent par un tunnel WireGuard ; le NAS est sauvegardé automatiquement.">
+à la maison :   appareils de la famille ──────────────────┐
+                                                         ▼
+à l'extérieur : appareil ══ tunnel WireGuard ══► Raspberry Pi
+                                                 OpenMediaVault
+                                                         │
+                                                         ▼
+                                                 sauvegardes automatiques</pre>
+  </div>
+</section>
+
+<section>
+  <h2>CONCEPTION</h2>
+  <div class="body">
+    <ul class="list">
+      <li><b>Accès distant sans exposition.</b> Le serveur n'est pas ouvert sur Internet : on
+        le joint de l'extérieur par un VPN WireGuard.</li>
+      <li><b>Comptes et droits.</b> Un compte par membre de la famille, chacun avec ses propres
+        droits d'accès, gérés dans OpenMediaVault.</li>
+      <li><b>Aucune perte de données.</b> Les données sont sauvegardées automatiquement.</li>
+    </ul>
+    <p>C'est ce projet qui m'a donné le goût de l'administration : faire tourner un service
+      dont d'autres dépendent.</p>
+  </div>
+</section>
+
+<section>
+  <h2>VOIR AUSSI</h2>
+  <div class="body">
+    <p><a href="{{ '/fr/projets/octopus/' | relative_url }}">octopus(8)</a>,
+      <a href="{{ '/fr/' | relative_url }}">leandre(1)</a></p>
+  </div>
+</section>

@@ -1,0 +1,113 @@
+---
+lang: fr
+ref: home
+man: leandre
+section: "1"
+title: Léandre Fouret
+description: Étudiant en 3e année à Epitech Lille, systèmes et réseaux. Cherche un stage de 4 mois d'avril à juillet 2027.
+permalink: /fr/
+---
+{%- assign t = site.data.i18n.fr -%}
+<section>
+  <h2>NOM</h2>
+  <div class="body"><p><b>leandre</b> — Léandre Fouret, étudiant en systèmes et réseaux à Epitech Lille</p></div>
+</section>
+
+<section>
+  <h2>SYNOPSIS</h2>
+  <div class="body">
+    <p class="synopsis"><b>leandre</b> <span class="opt">[<b>--stage</b> <span class="u">avril-juillet-2027</span>]</span>
+      <span class="opt">[<b>--ville</b> <span class="u">lille</span>|<span class="u">paris</span>]</span>
+      <span class="opt">[<b>--domaine</b> <span class="u">dev</span>|<span class="u">sysadmin</span>]</span></p>
+  </div>
+</section>
+
+<section>
+  <h2>DESCRIPTION</h2>
+  <div class="body">
+    <p><b>leandre</b> est en 3e année du Programme Grande École d'Epitech. Il écrit surtout du
+      C et du C++ : serveurs, protocoles réseau, outils système. Il administre ses propres
+      machines sous Linux et déploie ses services avec Docker, Ansible et Kubernetes.</p>
+    <p>Il cherche un <b>stage de 4 mois, d'avril à juillet 2027</b>, en développement logiciel
+      ou en administration systèmes et réseaux, dans la métropole lilloise ou à Paris.</p>
+  </div>
+</section>
+
+<section>
+  <h2>PROJETS</h2>
+  <div class="body">
+    <dl>
+      {%- for p in site.data.projects %}
+      <div>
+        <dt><a href="{{ t.projects_path | append: p.slug | append: '/' | relative_url }}">{{ p.slug }}({{ p.section }})</a></dt>
+        <dd>{{ p.fr.summary }}<br><span class="meta">{{ p.tech }} — {{ p.fr.context }}</span></dd>
+      </div>
+      {%- endfor %}
+    </dl>
+  </div>
+</section>
+
+<section>
+  <h2>EXPÉRIENCE</h2>
+  <div class="body">
+    <dl>
+      <div><dt><span class="tp-head">Assistant Éducatif Régional, Epitech Lille <span class="when">depuis 2026</span></span></dt>
+        <dd>Accompagnement technique d'environ 280 étudiants (7 promotions) : revues de projets,
+          ateliers, configuration des postes lors de la réinstallation du parc informatique.</dd></div>
+      <div><dt><span class="tp-head">Stage développeur full stack, Adfinitas <span class="when">juil. – déc. 2025</span></span></dt>
+        <dd>Applications web en Svelte 5 et TypeScript, formulaires reliés à Firebase,
+          tableaux de bord Looker Studio.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section>
+  <h2>COMPÉTENCES</h2>
+  <div class="body">
+    <dl class="cols">
+      <dt>systèmes</dt><dd>Linux (Arch au quotidien), KVM, Docker, Bash</dd>
+      <dt>réseaux</dt><dd>TCP/IP, UDP, DNS, DHCP, iptables, WireGuard, Wireshark</dd>
+      <dt>déploiement</dt><dd>Ansible, Kubernetes, Jenkins, GitHub Actions</dd>
+      <dt>langages</dt><dd>C, C++, Python, TypeScript, Rust</dd>
+      <dt>langues</dt><dd>français (langue maternelle), anglais (C1)</dd>
+    </dl>
+  </div>
+</section>
+
+<section>
+  <h2>FORMATION</h2>
+  <div class="body">
+    <p>Epitech, Programme Grande École, 3e année, GPA 3.44.
+      Titre RNCP niveau 7 « Expert en Technologies de l'Information ».<br>
+      Certification LPIC-1 (administration Linux), en préparation.</p>
+  </div>
+</section>
+
+{%- if site.cv_fr != "" %}
+<section>
+  <h2>FICHIERS</h2>
+  <div class="body">
+    <dl class="cols">
+      <dt><a href="{{ site.cv_fr | relative_url }}">cv-leandre-fouret.pdf</a></dt><dd>Le CV, en une page.</dd>
+    </dl>
+  </div>
+</section>
+{%- endif %}
+
+<section>
+  <h2>BOGUES</h2>
+  <div class="body">
+    <p>Aucune offre de stage reçue pour l'instant. Signalez-en une à
+      <span class="addr">{{ site.contact_email }}</span>
+      <button class="copy" type="button" data-copy="{{ site.contact_email }}">[{{ t.copy }}]</button>.</p>
+  </div>
+</section>
+
+<section>
+  <h2>VOIR AUSSI</h2>
+  <div class="body">
+    <p><a href="https://github.com/{{ site.github_user }}">github(1)</a>,
+      <a href="https://www.linkedin.com/in/{{ site.linkedin_user }}">linkedin(1)</a>,
+      <a href="mailto:{{ site.contact_email }}">mail(1)</a></p>
+  </div>
+</section>

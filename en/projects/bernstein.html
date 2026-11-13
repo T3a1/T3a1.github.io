@@ -1,0 +1,79 @@
+---
+lang: en
+ref: bernstein
+man: bernstein
+section: "8"
+title: Bernstein
+description: Deployment of a five-component application on Kubernetes (Azure AKS), with zero-downtime updates, autoscaling and NetworkPolicies.
+permalink: /en/projects/bernstein/
+---
+<section>
+  <h2>NAME</h2>
+  <div class="body"><p><b>bernstein</b> — deploy a five-component application on Kubernetes</p></div>
+</section>
+
+<section>
+  <h2>SYNOPSIS</h2>
+  <div class="body">
+    <p class="synopsis"><b>scripts/azure-infra.sh</b> <b>create</b>|<b>start</b>|<b>stop</b>|<b>destroy</b></p>
+    <p class="synopsis"><b>scripts/deploy.sh</b> <b>azure</b>|<b>local</b></p>
+  </div>
+</section>
+
+<section>
+  <h2>DESCRIPTION</h2>
+  <div class="body">
+    <p>A voting application (a Python voting page, a Java worker, a Node.js results page,
+      Redis and PostgreSQL) goes from source code to a public Kubernetes cluster on Azure:
+      building the images, pushing them to a private registry, deploying. A third-year pair
+      project. It is the same application as <a href="{{ '/en/projects/octopus/' | relative_url }}">octopus(8)</a>,
+      this time on an orchestrator.</p>
+<pre class="diagram" aria-label="Diagram: poll pushes votes to redis, worker pops them and writes them to postgresql, result reads them. poll and result are exposed to the Internet.">
+ Internet                                                                  Internet
+     │                                                                         │
+┌────▼─────┐ RPUSH ┌─────────┐ BLPOP ┌────────┐ UPSERT ┌─────────┐ SELECT ┌────▼─────┐
+│ poll ×2+ ├──────►│  redis  ├──────►│ worker ├───────►│   db    │◄───────┤ result×2 │
+│  + HPA   │       │ PVC 1Gi │       │        │        │ PVC 2Gi │        │          │
+└──────────┘       └─────────┘       └────────┘        └─────────┘        └──────────┘</pre>
+  </div>
+</section>
+
+<section>
+  <h2>ROLE</h2>
+  <div class="body">
+    <p>I wrote most of the repository: the Kubernetes manifests, the Azure infrastructure and
+      deployment scripts, the network policies and the zero-downtime test.</p>
+  </div>
+</section>
+
+<section>
+  <h2>DESIGN</h2>
+  <div class="body">
+    <ul class="list">
+      <li><b>Kustomize rather than Helm.</b> The manifests read as they are; only the image
+        names change between Azure and the local cluster (kind).</li>
+      <li><b>Zero-downtime updates.</b> Images tagged with the Git commit, rolling updates with
+        <code>maxUnavailable: 0</code>, a <code>preStop</code> hook that takes the pod out of the
+        load balancer before it stops, PodDisruptionBudgets. A script polls both pages during a
+        deployment and counts errors: zero.</li>
+      <li><b>Probes.</b> Startup, readiness and liveness: a pod only gets traffic once its
+        dependencies answer.</li>
+      <li><b>Availability.</b> At least two replicas of each public page, spread over the nodes;
+        the voting page scales from 2 to 5 replicas on CPU.</li>
+      <li><b>Security.</b> No secret in the repository, password-protected Redis, databases
+        reachable only inside the cluster, NetworkPolicies between pods, dropped Linux
+        capabilities, <code>seccomp</code>.</li>
+      <li><b>Cost.</b> Free AKS control plane, and a script that stops the nodes between
+        sessions.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>SEE ALSO</h2>
+  <div class="body">
+    <p><a href="https://github.com/T3a1/devops/tree/main/bernstein">GitHub repository</a>,
+      <a href="{{ '/en/projects/octopus/' | relative_url }}">octopus(8)</a>,
+      <a href="{{ '/en/' | relative_url }}">leandre(1)</a></p>
+  </div>
+</section>

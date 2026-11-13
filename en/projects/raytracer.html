@@ -1,0 +1,60 @@
+---
+lang: en
+ref: raytracer
+man: raytracer
+section: "1"
+title: Raytracer
+description: Ray tracing renderer in C++17, with scenes described in configuration files and shapes and lights loaded as plugins.
+permalink: /en/projects/raytracer/
+---
+<section>
+  <h2>NAME</h2>
+  <div class="body"><p><b>raytracer</b> — ray tracing renderer</p></div>
+</section>
+
+<section>
+  <h2>SYNOPSIS</h2>
+  <div class="body">
+    <p class="synopsis"><b>./raytracer</b> <span class="u">scene.cfg</span> <span class="opt">[<b>-a</b> <span class="u">samples</span>]</span></p>
+    <p class="synopsis"><b>./raytracer --hardcoded</b></p>
+  </div>
+</section>
+
+<section>
+  <h2>DESCRIPTION</h2>
+  <div class="body">
+    <p>Reads a scene from a configuration file, casts one or more rays per pixel and writes the
+      image as a PPM file. A quick preview comes first, then the full render; when the scene
+      file changes, the image is rendered again. A second-year project.</p>
+    <figure>
+      <img src="{{ '/assets/img/raytracer-render.png' | relative_url }}" width="950" height="540" loading="lazy"
+           alt="Render: a transparent blue sphere, a grey sphere, and colored cylinders and cones standing on a green plane, with their shadows.">
+      <figcaption>A test scene: spheres, cylinders and cones, transparency and shadows.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <h2>DESIGN</h2>
+  <div class="body">
+    <ul class="list">
+      <li><b>Interfaces and plugins.</b> Shapes and lights implement <code>IShape</code> and
+        <code>ILight</code>, are built by factories, and also ship as shared libraries loaded
+        with <code>dlopen</code>.</li>
+      <li><b>Builder.</b> One scene builder reads <code>.cfg</code> files (libconfig++), another
+        provides a hard-coded test scene.</li>
+      <li><b>Shapes.</b> Sphere, plane, cylinder, cone, limited versions, triangle, OBJ meshes
+        and groups.</li>
+      <li><b>Rendering.</b> Shadows, transparent objects that let part of the light through,
+        textures, anti-aliasing, and a BVH to speed up intersections on large meshes.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>SEE ALSO</h2>
+  <div class="body">
+    <p><a href="https://github.com/T3a1/object-oriented-programming/tree/main/raytracer">GitHub repository</a>,
+      <a href="{{ '/en/' | relative_url }}">leandre(1)</a></p>
+  </div>
+</section>

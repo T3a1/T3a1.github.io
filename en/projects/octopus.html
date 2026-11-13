@@ -1,0 +1,58 @@
+---
+lang: en
+ref: octopus
+man: octopus
+section: "8"
+title: Octopus
+description: Automated deployment of a five-service application on virtual machines with Ansible, idempotent playbooks and encrypted secrets.
+permalink: /en/projects/octopus/
+---
+<section>
+  <h2>NAME</h2>
+  <div class="body"><p><b>octopus</b> — deploy a five-service application on virtual machines</p></div>
+</section>
+
+<section>
+  <h2>SYNOPSIS</h2>
+  <div class="body">
+    <p class="synopsis"><b>ansible-playbook -i</b> <span class="u">production</span> <b>playbook.yml --ask-vault-pass</b></p>
+  </div>
+</section>
+
+<section>
+  <h2>DESCRIPTION</h2>
+  <div class="body">
+    <p>One command installs and starts the whole voting application on five virtual machines;
+      running it again changes nothing. A second-year project. The same application is
+      deployed on Kubernetes in <a href="{{ '/en/projects/bernstein/' | relative_url }}">bernstein(8)</a>.</p>
+<pre class="diagram" aria-label="Diagram: poll to redis, worker to postgresql, result reads postgresql; each service on its own machine.">
+voters ──► poll ──► redis ──► worker ──► postgresql ◄── result ◄── viewers
+          (VM 1)   (VM 2)    (VM 3)       (VM 4)        (VM 5)</pre>
+  </div>
+</section>
+
+<section>
+  <h2>DESIGN</h2>
+  <div class="body">
+    <ul class="list">
+      <li><b>One role per service.</b> <code>base</code>, <code>redis</code>, <code>postgresql</code>,
+        <code>poll</code>, <code>worker</code>, <code>result</code>. Each role installs its runtime
+        (Python virtualenv, Maven, Node.js) and a systemd service.</li>
+      <li><b>Idempotence.</b> Each task describes a desired state; handlers restart a service
+        only when its configuration changed.</li>
+      <li><b>Secrets.</b> The database password is encrypted with Ansible Vault; the SSH key,
+        the vault password file and the real inventory stay out of the repository.</li>
+      <li><b>PostgreSQL 16</b> from the official repository, schema applied and access
+        restricted in <code>pg_hba.conf</code>.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>SEE ALSO</h2>
+  <div class="body">
+    <p><a href="https://github.com/T3a1/devops/tree/main/octopus">GitHub repository</a>,
+      <a href="{{ '/en/projects/bernstein/' | relative_url }}">bernstein(8)</a>,
+      <a href="{{ '/en/' | relative_url }}">leandre(1)</a></p>
+  </div>
+</section>

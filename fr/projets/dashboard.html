@@ -1,0 +1,74 @@
+---
+lang: fr
+ref: dashboard
+man: dashboard
+section: "1"
+title: Dashboard
+description: Tableau de bord web de widgets rafraîchis en arrière-plan, avec une API .NET, React, PostgreSQL, une connexion OAuth et 193 tests d'intégration.
+permalink: /fr/projets/dashboard/
+---
+<section>
+  <h2>NOM</h2>
+  <div class="body"><p><b>dashboard</b> — tableau de bord personnel de widgets web</p></div>
+</section>
+
+<section>
+  <h2>SYNOPSIS</h2>
+  <div class="body">
+    <p class="synopsis"><b>docker compose up</b> <span class="opt">[<b>--build</b>]</span></p>
+  </div>
+</section>
+
+<section>
+  <h2>DESCRIPTION</h2>
+  <div class="body">
+    <p>Chaque utilisateur choisit des services (météo, cryptomonnaie, NASA, Duolingo, GitHub)
+      et place leurs widgets sur une grille. Chaque widget a ses réglages et sa fréquence de
+      rafraîchissement, de 10 secondes à une journée. Projet de 3e année, en binôme.</p>
+<pre class="diagram" aria-label="Schéma : le navigateur parle à nginx, qui sert l'application React et transmet /api à l'API .NET ; l'API utilise PostgreSQL, Mailpit pour les e-mails, et interroge les services externes en arrière-plan.">
+navigateur ──► nginx ──┬── application React (fichiers statiques)
+                       └── /api ──► API .NET 10 ──┬── PostgreSQL
+                                        │         └── Mailpit (e-mails)
+                                        └── rafraîchissement en arrière-plan
+                                            ──► Open-Meteo, CoinGecko, NASA,
+                                                Duolingo, GitHub</pre>
+  </div>
+</section>
+
+<section>
+  <h2>RÔLE</h2>
+  <div class="body">
+    <p>J'ai écrit l'API .NET et sa suite de tests, la connexion avec Google et Microsoft
+      (OpenID Connect), la liaison de compte GitHub par OAuth, la mise en conteneurs et la
+      documentation. Mon binôme a réalisé l'interface React.</p>
+  </div>
+</section>
+
+<section>
+  <h2>CONCEPTION</h2>
+  <div class="body">
+    <ul class="list">
+      <li><b>Rafraîchissement côté serveur.</b> Le serveur met à jour chaque widget en
+        arrière-plan et garde le dernier résultat ; la page ne fait que le lire. Cent onglets
+        ouverts ne font pas cent appels au fournisseur météo.</li>
+      <li><b>Pas de mot de passe tiers.</b> GitHub se lie en un clic sur sa propre page
+        d'autorisation ; aucun mot de passe ni clé n'est saisi dans l'application.</li>
+      <li><b>Comptes.</b> Inscription confirmée par e-mail, connexion par jeton, rôle
+        administrateur pour gérer les comptes.</li>
+      <li><b>Tests.</b> 193 tests d'intégration xUnit, avec des faux fournisseurs (météo,
+        GitHub, OIDC…) pour ne dépendre d'aucun service extérieur.</li>
+      <li><b>Lancement.</b> Une seule commande <code>docker compose up</code> : base de données,
+        boîte mail de test, API et interface.</li>
+      <li><b>Décisions documentées.</b> Seize décisions de conception, chacune avec les options
+        envisagées, ce qu'elle apporte et ce qu'elle coûte.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>VOIR AUSSI</h2>
+  <div class="body">
+    <p><a href="https://github.com/T3a1/dashboard">dépôt GitHub</a>,
+      <a href="{{ '/fr/' | relative_url }}">leandre(1)</a></p>
+  </div>
+</section>

@@ -1,0 +1,74 @@
+---
+lang: en
+ref: dashboard
+man: dashboard
+section: "1"
+title: Dashboard
+description: Web dashboard of widgets refreshed in the background, with a .NET API, React, PostgreSQL, OAuth sign-in and 193 integration tests.
+permalink: /en/projects/dashboard/
+---
+<section>
+  <h2>NAME</h2>
+  <div class="body"><p><b>dashboard</b> — personal dashboard of web widgets</p></div>
+</section>
+
+<section>
+  <h2>SYNOPSIS</h2>
+  <div class="body">
+    <p class="synopsis"><b>docker compose up</b> <span class="opt">[<b>--build</b>]</span></p>
+  </div>
+</section>
+
+<section>
+  <h2>DESCRIPTION</h2>
+  <div class="body">
+    <p>Each user picks services (weather, cryptocurrency, NASA, Duolingo, GitHub) and places
+      their widgets on a grid. Every widget has its own settings and refresh rate, from 10
+      seconds to a day. A third-year pair project.</p>
+<pre class="diagram" aria-label="Diagram: the browser talks to nginx, which serves the React app and forwards /api to the .NET API; the API uses PostgreSQL, Mailpit for emails, and polls the external services in the background.">
+browser ──► nginx ──┬── React app (static files)
+                    └── /api ──► .NET 10 API ──┬── PostgreSQL
+                                     │         └── Mailpit (emails)
+                                     └── background refresh
+                                         ──► Open-Meteo, CoinGecko, NASA,
+                                             Duolingo, GitHub</pre>
+  </div>
+</section>
+
+<section>
+  <h2>ROLE</h2>
+  <div class="body">
+    <p>I wrote the .NET API and its test suite, sign-in with Google and Microsoft (OpenID
+      Connect), GitHub account linking over OAuth, the containers and the documentation. My
+      teammate built the React interface.</p>
+  </div>
+</section>
+
+<section>
+  <h2>DESIGN</h2>
+  <div class="body">
+    <ul class="list">
+      <li><b>Server-side refresh.</b> The server updates every widget in the background and
+        keeps the latest result; the page only reads it. A hundred open tabs do not mean a
+        hundred calls to the weather provider.</li>
+      <li><b>No third-party password.</b> GitHub is linked in one click on its own consent
+        page; no password or key is ever typed into the application.</li>
+      <li><b>Accounts.</b> Sign-up confirmed by email, token-based login, an administrator
+        role to manage accounts.</li>
+      <li><b>Tests.</b> 193 xUnit integration tests, with fake providers (weather, GitHub,
+        OIDC…) so no external service is needed.</li>
+      <li><b>Running it.</b> One <code>docker compose up</code>: database, test mailbox, API
+        and interface.</li>
+      <li><b>Documented decisions.</b> Sixteen design decisions, each with the options
+        considered, what it buys and what it costs.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>SEE ALSO</h2>
+  <div class="body">
+    <p><a href="https://github.com/T3a1/dashboard">GitHub repository</a>,
+      <a href="{{ '/en/' | relative_url }}">leandre(1)</a></p>
+  </div>
+</section>

@@ -1,0 +1,61 @@
+---
+lang: en
+ref: myteams
+man: myteams
+section: "1"
+title: myTeams
+description: Client-server team chat in C++, with its own TCP protocol, a poll loop and on-disk persistence.
+permalink: /en/projects/myteams/
+---
+<section>
+  <h2>NAME</h2>
+  <div class="body"><p><b>myteams</b> — command-line team chat</p></div>
+</section>
+
+<section>
+  <h2>SYNOPSIS</h2>
+  <div class="body">
+    <p class="synopsis"><b>myteams_server</b> <span class="u">port</span></p>
+    <p class="synopsis"><b>myteams_cli</b> <span class="u">ip</span> <span class="u">port</span></p>
+  </div>
+</section>
+
+<section>
+  <h2>DESCRIPTION</h2>
+  <div class="body">
+    <p>A server and a command-line client, in the spirit of Microsoft Teams. Users log in,
+      create teams, channels inside teams, threads inside channels and replies inside threads,
+      and send each other private messages. A second-year project.</p>
+<pre class="diagram" aria-label="Hierarchy: team, then channel, then thread, then reply; alongside, private messages between users.">
+team
+ └── channel
+      └── thread
+           └── reply          + private messages between users</pre>
+  </div>
+</section>
+
+<section>
+  <h2>DESIGN</h2>
+  <div class="body">
+    <ul class="list">
+      <li><b>One <code>poll()</code> loop.</b> The server serves every client without threads.</li>
+      <li><b>Custom protocol.</b> Text commands and status codes, described in an RFC-style
+        specification.</li>
+      <li><b>Live notifications.</b> Users subscribed to a team are told as soon as a channel,
+        thread or reply appears in it.</li>
+      <li><b>Persistence.</b> Every entity has a UUID; everything is saved to disk and loaded
+        back at startup.</li>
+      <li><b>Context.</b> <code>/use</code> sets the current team, channel or thread, and
+        <code>/create</code>, <code>/list</code>, <code>/info</code> act on it.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>SEE ALSO</h2>
+  <div class="body">
+    <p><a href="https://github.com/T3a1/network-programming/tree/main/myteams">GitHub repository</a>,
+      <a href="{{ '/en/projects/zappy/' | relative_url }}">zappy(6)</a>,
+      <a href="{{ '/en/' | relative_url }}">leandre(1)</a></p>
+  </div>
+</section>

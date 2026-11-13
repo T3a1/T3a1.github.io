@@ -1,0 +1,70 @@
+<!doctype html>
+{%- assign t = site.data.i18n[page.lang] -%}
+{%- assign label = page.man | append: "(" | append: page.section | append: ")" -%}
+{%- assign other = site.pages | where: "ref", page.ref | where_exp: "p", "p.lang != page.lang" | first -%}
+<html lang="{{ page.lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  {% seo title=false %}
+  <title>{{ label }} · Léandre Fouret</title>
+  {%- if other %}
+  <link rel="alternate" hreflang="{{ other.lang }}" href="{{ other.url | absolute_url }}">
+  {%- endif %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap">
+  <link rel="stylesheet" href="{{ '/assets/css/man.css' | relative_url }}">
+  <script src="{{ '/assets/js/keys.js' | relative_url }}" defer></script>
+</head>
+<body data-page="{{ label }}" data-home="{{ t.home | relative_url }}"
+      data-status="{{ t.status }}" data-end="{{ t.end }}"
+      data-not-found="{{ t.not_found }}" data-copied="{{ t.copied }}"
+      {% if other %}data-other="{{ other.url | relative_url }}"{% endif %}>
+  <div class="page">
+    <div class="runhead" aria-hidden="true">
+      <span>{{ label | upcase }}</span>
+      <span>{{ t.sections[page.section] }}</span>
+      <span>{{ label | upcase }}</span>
+    </div>
+
+    <main>
+{{ content }}
+    </main>
+
+    <div class="runhead foot" aria-hidden="true">
+      <span>Epitech Lille</span>
+      <span>{{ t.date }}</span>
+      <span>{{ label | upcase }}</span>
+    </div>
+  </div>
+
+  <div class="help" id="help" hidden role="dialog" aria-labelledby="help-title">
+    <div class="inner">
+      <h2 id="help-title">{{ t.help_title }}</h2>
+      <div class="body">
+        <dl class="cols">
+          {%- for row in t.help %}
+          <dt>{{ row[0] }}</dt><dd>{{ row[1] }}</dd>
+          {%- endfor %}
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <div class="status">
+    <span class="msg" id="msg">{{ t.status | replace: "{page}", label | replace: "{line}", "1" | replace: "{total}", "1" }}</span>
+    <form id="search" hidden>
+      <label for="q" class="sr">{{ t.search }}</label>
+      <span aria-hidden="true">/</span><input id="q" type="text" autocomplete="off" spellcheck="false">
+    </form>
+    <nav class="lang" aria-label="{{ t.language }}">
+      {%- if page.lang == "fr" %}
+      <span aria-current="true">fr</span>{% if other %}<a href="{{ other.url | relative_url }}" hreflang="en" lang="en">en</a>{% endif %}
+      {%- else %}
+      {% if other %}<a href="{{ other.url | relative_url }}" hreflang="fr" lang="fr">fr</a>{% endif %}<span aria-current="true">en</span>
+      {%- endif %}
+    </nav>
+  </div>
+</body>
+</html>

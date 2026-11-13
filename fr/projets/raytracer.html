@@ -1,0 +1,61 @@
+---
+lang: fr
+ref: raytracer
+man: raytracer
+section: "1"
+title: Raytracer
+description: Moteur de rendu par lancer de rayons en C++17, scènes décrites en fichiers de configuration, formes et lumières chargées en plugins.
+permalink: /fr/projets/raytracer/
+---
+<section>
+  <h2>NOM</h2>
+  <div class="body"><p><b>raytracer</b> — moteur de rendu par lancer de rayons</p></div>
+</section>
+
+<section>
+  <h2>SYNOPSIS</h2>
+  <div class="body">
+    <p class="synopsis"><b>./raytracer</b> <span class="u">scène.cfg</span> <span class="opt">[<b>-a</b> <span class="u">échantillons</span>]</span></p>
+    <p class="synopsis"><b>./raytracer --hardcoded</b></p>
+  </div>
+</section>
+
+<section>
+  <h2>DESCRIPTION</h2>
+  <div class="body">
+    <p>Lit une scène dans un fichier de configuration, lance un ou plusieurs rayons par pixel
+      et écrit l'image au format PPM. Un aperçu rapide sort d'abord, puis le rendu complet ; si
+      le fichier de scène change, l'image est recalculée. Projet de 2e année.</p>
+    <figure>
+      <img src="{{ '/assets/img/raytracer-render.png' | relative_url }}" width="950" height="540" loading="lazy"
+           alt="Rendu : une sphère bleue transparente, une sphère grise, des cylindres et des cônes colorés posés sur un plan vert, avec leurs ombres.">
+      <figcaption>Une scène de test : sphères, cylindres et cônes, transparence et ombres.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <h2>CONCEPTION</h2>
+  <div class="body">
+    <ul class="list">
+      <li><b>Interfaces et plugins.</b> Formes et lumières implémentent <code>IShape</code> et
+        <code>ILight</code>, sont créées par des fabriques et livrées aussi en bibliothèques
+        partagées chargées avec <code>dlopen</code>.</li>
+      <li><b>Builder.</b> Un constructeur de scène lit les fichiers <code>.cfg</code>
+        (libconfig++), un autre fournit une scène de test codée en dur.</li>
+      <li><b>Formes.</b> Sphère, plan, cylindre, cône, versions limitées, triangle, maillages OBJ
+        et groupes.</li>
+      <li><b>Rendu.</b> Ombres, objets transparents qui laissent passer une partie de la lumière,
+        textures, anticrénelage, et une BVH pour accélérer les intersections sur les gros
+        maillages.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>VOIR AUSSI</h2>
+  <div class="body">
+    <p><a href="https://github.com/T3a1/object-oriented-programming/tree/main/raytracer">dépôt GitHub</a>,
+      <a href="{{ '/fr/' | relative_url }}">leandre(1)</a></p>
+  </div>
+</section>

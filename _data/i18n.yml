@@ -1,0 +1,46 @@
+fr:
+  home: /fr/
+  projects_path: /fr/projets/
+  date: novembre 2026
+  sections:
+    "1": Commandes utilisateur
+    "6": Jeux
+    "8": Administration système
+  status: "Page de manuel {page} ligne {line}/{total} (h pour l'aide, q pour quitter)"
+  end: (FIN)
+  not_found: Motif introuvable
+  copied: Adresse copiée
+  copy: copier
+  search: Rechercher
+  language: Langue
+  help_title: AIDE
+  help:
+    - [ "j / k", "descendre / monter d'une ligne" ]
+    - [ "espace / b", "page suivante / précédente" ]
+    - [ "g / G", "début / fin" ]
+    - [ "/motif", "chercher, puis n / N pour l'occurrence suivante / précédente" ]
+    - [ "l", "changer de langue" ]
+    - [ "q", "fermer l'aide, revenir à l'accueil" ]
+en:
+  home: /en/
+  projects_path: /en/projects/
+  date: November 2026
+  sections:
+    "1": User Commands
+    "6": Games
+    "8": System Administration
+  status: "Manual page {page} line {line}/{total} (press h for help or q to quit)"
+  end: (END)
+  not_found: Pattern not found
+  copied: Address copied
+  copy: copy
+  search: Search
+  language: Language
+  help_title: HELP
+  help:
+    - [ "j / k", "scroll down / up one line" ]
+    - [ "space / b", "next / previous page" ]
+    - [ "g / G", "top / bottom" ]
+    - [ "/pattern", "search, then n / N for the next / previous match" ]
+    - [ "l", "switch language" ]
+    - [ "q", "close the help, back to the home page" ]

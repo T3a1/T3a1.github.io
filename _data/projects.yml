@@ -1,0 +1,80 @@
+# Order = order on the home page.
+- slug: r-type
+  section: "6"
+  tech: C++20 · Asio · raylib · Conan · Docker
+  fr:
+    context: 3e année, équipe de 4
+    summary: Jeu de tir en réseau jusqu'à 4 joueurs. Bases du client et du serveur, protocole UDP binaire, prédiction et interpolation, salles et lobby.
+  en:
+    context: 3rd year, team of 4
+    summary: Networked shooter for up to 4 players. Client and server foundations, binary UDP protocol, prediction and interpolation, rooms and lobby.
+
+- slug: bernstein
+  section: "8"
+  tech: Kubernetes · Kustomize · Docker · Azure
+  fr:
+    context: 3e année, binôme
+    summary: Une application à 5 composants déployée sur Kubernetes (Azure AKS) avec des mises à jour sans coupure, de l'autoscaling et des NetworkPolicies.
+  en:
+    context: 3rd year, pair project
+    summary: A five-component application deployed on Kubernetes (Azure AKS) with zero-downtime updates, autoscaling and NetworkPolicies.
+
+- slug: dashboard
+  section: "1"
+  tech: .NET 10 · React · PostgreSQL · Docker Compose
+  fr:
+    context: 3e année, binôme
+    summary: Tableau de bord web de widgets rafraîchis en arrière-plan. API, connexion OAuth et 193 tests d'intégration.
+  en:
+    context: 3rd year, pair project
+    summary: Web dashboard of widgets refreshed in the background. API, OAuth sign-in and 193 integration tests.
+
+- slug: zappy
+  section: "6"
+  tech: C · Python · C++ · raylib
+  fr:
+    context: 2e année, équipe de 5
+    summary: Simulation multijoueur avec un serveur C, des IA autonomes en Python et une vue 3D. Coordination de l'équipe, serveur écrit à deux.
+  en:
+    context: 2nd year, team of 5
+    summary: Multiplayer simulation with a C server, autonomous Python AIs and a 3D viewer. Led the team, co-wrote the server.
+
+- slug: octopus
+  section: "8"
+  tech: Ansible · Ansible Vault · systemd
+  fr:
+    context: 2e année
+    summary: La même application que bernstein, déployée sur des machines virtuelles avec des playbooks idempotents et des secrets chiffrés.
+  en:
+    context: 2nd year
+    summary: The same application as bernstein, deployed on virtual machines with idempotent playbooks and encrypted secrets.
+
+- slug: drive
+  section: "8"
+  tech: Raspberry Pi · OpenMediaVault · WireGuard
+  fr:
+    context: projet personnel
+    summary: Stockage auto-hébergé pour la famille, avec comptes et droits d'accès, accès distant par VPN et sauvegardes automatiques.
+  en:
+    context: personal project
+    summary: Self-hosted storage for the family, with accounts and access rights, remote access over VPN and automatic backups.
+
+- slug: myteams
+  section: "1"
+  tech: C++ · sockets · poll
+  fr:
+    context: 2e année
+    summary: Messagerie d'équipe client-serveur, avec son propre protocole TCP et sa persistance sur disque.
+  en:
+    context: 2nd year
+    summary: Client-server team chat, with its own TCP protocol and on-disk persistence.
+
+- slug: raytracer
+  section: "1"
+  tech: C++17 · libconfig · dlopen
+  fr:
+    context: 2e année
+    summary: Moteur de rendu par lancer de rayons. Scènes décrites dans des fichiers, formes et lumières chargées en plugins.
+  en:
+    context: 2nd year
+    summary: Ray tracing renderer. Scenes described in files, shapes and lights loaded as plugins.

@@ -1,0 +1,113 @@
+---
+lang: en
+ref: home
+man: leandre
+section: "1"
+title: Léandre Fouret
+description: Third-year student at Epitech Lille, systems and networks. Looking for a 4-month internship from April to July 2027.
+permalink: /en/
+---
+{%- assign t = site.data.i18n.en -%}
+<section>
+  <h2>NAME</h2>
+  <div class="body"><p><b>leandre</b> — Léandre Fouret, systems and network student at Epitech Lille</p></div>
+</section>
+
+<section>
+  <h2>SYNOPSIS</h2>
+  <div class="body">
+    <p class="synopsis"><b>leandre</b> <span class="opt">[<b>--internship</b> <span class="u">april-july-2027</span>]</span>
+      <span class="opt">[<b>--city</b> <span class="u">lille</span>|<span class="u">paris</span>]</span>
+      <span class="opt">[<b>--field</b> <span class="u">dev</span>|<span class="u">sysadmin</span>]</span></p>
+  </div>
+</section>
+
+<section>
+  <h2>DESCRIPTION</h2>
+  <div class="body">
+    <p><b>leandre</b> is a third-year student in Epitech's Master's program. He mostly writes C
+      and C++: servers, network protocols, system tools. He runs his own Linux machines and
+      deploys his services with Docker, Ansible and Kubernetes.</p>
+    <p>He is looking for a <b>4-month internship, April to July 2027</b>, in software
+      development or systems and network administration, around Lille or in Paris.</p>
+  </div>
+</section>
+
+<section>
+  <h2>PROJECTS</h2>
+  <div class="body">
+    <dl>
+      {%- for p in site.data.projects %}
+      <div>
+        <dt><a href="{{ t.projects_path | append: p.slug | append: '/' | relative_url }}">{{ p.slug }}({{ p.section }})</a></dt>
+        <dd>{{ p.en.summary }}<br><span class="meta">{{ p.tech }} — {{ p.en.context }}</span></dd>
+      </div>
+      {%- endfor %}
+    </dl>
+  </div>
+</section>
+
+<section>
+  <h2>EXPERIENCE</h2>
+  <div class="body">
+    <dl>
+      <div><dt><span class="tp-head">Regional Teaching Assistant, Epitech Lille <span class="when">since 2026</span></span></dt>
+        <dd>Technical support for about 280 students (7 classes): project reviews, workshops,
+          setting up the computers when the school's fleet was reinstalled.</dd></div>
+      <div><dt><span class="tp-head">Full-stack developer intern, Adfinitas <span class="when">Jul – Dec 2025</span></span></dt>
+        <dd>Web applications in Svelte 5 and TypeScript, forms backed by Firebase,
+          Looker Studio dashboards.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section>
+  <h2>SKILLS</h2>
+  <div class="body">
+    <dl class="cols">
+      <dt>systems</dt><dd>Linux (Arch daily), KVM, Docker, Bash</dd>
+      <dt>networks</dt><dd>TCP/IP, UDP, DNS, DHCP, iptables, WireGuard, Wireshark</dd>
+      <dt>deployment</dt><dd>Ansible, Kubernetes, Jenkins, GitHub Actions</dd>
+      <dt>languages</dt><dd>C, C++, Python, TypeScript, Rust</dd>
+      <dt>spoken</dt><dd>French (native), English (C1)</dd>
+    </dl>
+  </div>
+</section>
+
+<section>
+  <h2>EDUCATION</h2>
+  <div class="body">
+    <p>Epitech, Master's program (Programme Grande École), 3rd year, GPA 3.44.
+      French RNCP level 7 degree, "Expert in Information Technology".<br>
+      LPIC-1 certification (Linux administration), in progress.</p>
+  </div>
+</section>
+
+{%- if site.cv_en != "" %}
+<section>
+  <h2>FILES</h2>
+  <div class="body">
+    <dl class="cols">
+      <dt><a href="{{ site.cv_en | relative_url }}">cv-leandre-fouret.pdf</a></dt><dd>One-page résumé.</dd>
+    </dl>
+  </div>
+</section>
+{%- endif %}
+
+<section>
+  <h2>BUGS</h2>
+  <div class="body">
+    <p>No internship offer received yet. Report one to
+      <span class="addr">{{ site.contact_email }}</span>
+      <button class="copy" type="button" data-copy="{{ site.contact_email }}">[{{ t.copy }}]</button>.</p>
+  </div>
+</section>
+
+<section>
+  <h2>SEE ALSO</h2>
+  <div class="body">
+    <p><a href="https://github.com/{{ site.github_user }}">github(1)</a>,
+      <a href="https://www.linkedin.com/in/{{ site.linkedin_user }}">linkedin(1)</a>,
+      <a href="mailto:{{ site.contact_email }}">mail(1)</a></p>
+  </div>
+</section>

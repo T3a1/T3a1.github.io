@@ -1,0 +1,58 @@
+---
+lang: fr
+ref: octopus
+man: octopus
+section: "8"
+title: Octopus
+description: Déploiement automatisé d'une application à 5 services sur des machines virtuelles avec Ansible, playbooks idempotents et secrets chiffrés.
+permalink: /fr/projets/octopus/
+---
+<section>
+  <h2>NOM</h2>
+  <div class="body"><p><b>octopus</b> — déployer une application à cinq services sur des machines virtuelles</p></div>
+</section>
+
+<section>
+  <h2>SYNOPSIS</h2>
+  <div class="body">
+    <p class="synopsis"><b>ansible-playbook -i</b> <span class="u">production</span> <b>playbook.yml --ask-vault-pass</b></p>
+  </div>
+</section>
+
+<section>
+  <h2>DESCRIPTION</h2>
+  <div class="body">
+    <p>Une seule commande installe et démarre toute l'application de vote sur cinq machines
+      virtuelles ; la relancer ne change rien. Projet de 2e année. La même application est
+      déployée sur Kubernetes dans <a href="{{ '/fr/projets/bernstein/' | relative_url }}">bernstein(8)</a>.</p>
+<pre class="diagram" aria-label="Schéma : poll vers redis, worker vers postgresql, result lit postgresql ; chaque service sur sa propre machine.">
+votants ──► poll ──► redis ──► worker ──► postgresql ◄── result ◄── lecteurs
+           (VM 1)   (VM 2)    (VM 3)       (VM 4)        (VM 5)</pre>
+  </div>
+</section>
+
+<section>
+  <h2>CONCEPTION</h2>
+  <div class="body">
+    <ul class="list">
+      <li><b>Un rôle par service.</b> <code>base</code>, <code>redis</code>, <code>postgresql</code>,
+        <code>poll</code>, <code>worker</code>, <code>result</code>. Chaque rôle installe son
+        environnement (virtualenv Python, Maven, Node.js) et un service systemd.</li>
+      <li><b>Idempotence.</b> Chaque tâche décrit un état voulu ; les handlers ne redémarrent un
+        service que si sa configuration a changé.</li>
+      <li><b>Secrets.</b> Le mot de passe de la base est chiffré avec Ansible Vault ; la clé SSH,
+        le fichier de mot de passe du coffre et l'inventaire réel restent hors du dépôt.</li>
+      <li><b>PostgreSQL 16</b> depuis le dépôt officiel, schéma appliqué et accès restreint
+        dans <code>pg_hba.conf</code>.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>VOIR AUSSI</h2>
+  <div class="body">
+    <p><a href="https://github.com/T3a1/devops/tree/main/octopus">dépôt GitHub</a>,
+      <a href="{{ '/fr/projets/bernstein/' | relative_url }}">bernstein(8)</a>,
+      <a href="{{ '/fr/' | relative_url }}">leandre(1)</a></p>
+  </div>
+</section>

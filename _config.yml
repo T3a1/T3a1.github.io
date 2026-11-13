@@ -1,0 +1,27 @@
+title: Léandre Fouret
+description: Étudiant en 3e année à Epitech Lille, systèmes et réseaux. Cherche un stage d'avril à juillet 2027.
+url: https://t3a1.github.io
+baseurl: ""
+lang: fr
+
+author: Léandre Fouret
+contact_email: contact-me.c00pg@passmail.net
+github_user: T3a1
+linkedin_user: leandrefouret
+
+# Path of the résumé PDF inside the site (e.g. /assets/cv/cv-leandre-fouret.pdf).
+# Leave empty to hide the FILES section.
+cv_fr: ""
+cv_en: ""
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+defaults:
+  - scope: { path: "" }
+    values: { layout: man }
+
+exclude:
+  - README.md
+  - LICENSE

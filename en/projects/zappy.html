@@ -1,0 +1,70 @@
+---
+lang: en
+ref: zappy
+man: zappy
+section: "6"
+title: Zappy
+description: Multiplayer simulation with a C server, autonomous Python AIs and a C++ 3D viewer, connected over TCP.
+permalink: /en/projects/zappy/
+---
+<section>
+  <h2>NAME</h2>
+  <div class="body"><p><b>zappy</b> — multiplayer simulation where teams of AIs compete</p></div>
+</section>
+
+<section>
+  <h2>SYNOPSIS</h2>
+  <div class="body">
+    <p class="synopsis"><b>zappy_server -p</b> <span class="u">port</span> <b>-x</b> <span class="u">width</span> <b>-y</b> <span class="u">height</span> <b>-n</b> <span class="u">team</span>… <b>-c</b> <span class="u">players</span> <b>-f</b> <span class="u">freq</span></p>
+    <p class="synopsis"><b>zappy_ai -p</b> <span class="u">port</span> <b>-n</b> <span class="u">team</span> <span class="opt">[<b>-h</b> <span class="u">machine</span>]</span></p>
+    <p class="synopsis"><b>zappy_gui -p</b> <span class="u">port</span> <b>-h</b> <span class="u">machine</span></p>
+  </div>
+</section>
+
+<section>
+  <h2>DESCRIPTION</h2>
+  <div class="body">
+    <p>The end-of-year project of the second year, built by five. On a map shaped like a torus,
+      teams of AIs gather food and stones and level up through group rituals. The first team
+      to bring six players to the top level wins. Three separate programs only talk over TCP.</p>
+<pre class="diagram" aria-label="Diagram: several zappy_ai and one zappy_gui connect over TCP to zappy_server.">
+zappy_ai ──┐
+zappy_ai ──┼── TCP, text protocol ──► zappy_server ◄── TCP ── zappy_gui
+zappy_ai ──┘                           (C, poll)            (C++, raylib)</pre>
+  </div>
+</section>
+
+<section>
+  <h2>ROLE</h2>
+  <div class="body">
+    <p>I led the team (architecture, task split, integration of the three parts) and wrote
+      the server with a teammate.</p>
+  </div>
+</section>
+
+<section>
+  <h2>DESIGN</h2>
+  <div class="body">
+    <ul class="list">
+      <li><b>No threads on the server.</b> A single <code>poll()</code> loop serves every
+        client, so the game state never needs a lock.</li>
+      <li><b>Game time.</b> Each player has a command queue, and each command lasts a number of
+        time units set by the frequency <code>-f</code>.</li>
+      <li><b>Two protocols.</b> One for players (move, look, take, broadcast a message), one for
+        the viewer, which receives every event live.</li>
+      <li><b>AI.</b> A state machine (survive, gather, rally, level up); a leader is elected and
+        calls its team through broadcasts.</li>
+      <li><b>Tests.</b> Server unit tests with Criterion: argument parsing, map, network, world.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>SEE ALSO</h2>
+  <div class="body">
+    <p><a href="https://github.com/T3a1/zappy">GitHub repository</a>,
+      <a href="{{ '/en/projects/r-type/' | relative_url }}">r-type(6)</a>,
+      <a href="{{ '/en/projects/myteams/' | relative_url }}">myteams(1)</a>,
+      <a href="{{ '/en/' | relative_url }}">leandre(1)</a></p>
+  </div>
+</section>

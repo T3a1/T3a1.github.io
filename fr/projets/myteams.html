@@ -1,0 +1,62 @@
+---
+lang: fr
+ref: myteams
+man: myteams
+section: "1"
+title: myTeams
+description: Messagerie d'équipe client-serveur en C++, avec son propre protocole TCP, une boucle poll et une persistance sur disque.
+permalink: /fr/projets/myteams/
+---
+<section>
+  <h2>NOM</h2>
+  <div class="body"><p><b>myteams</b> — messagerie d'équipe en ligne de commande</p></div>
+</section>
+
+<section>
+  <h2>SYNOPSIS</h2>
+  <div class="body">
+    <p class="synopsis"><b>myteams_server</b> <span class="u">port</span></p>
+    <p class="synopsis"><b>myteams_cli</b> <span class="u">ip</span> <span class="u">port</span></p>
+  </div>
+</section>
+
+<section>
+  <h2>DESCRIPTION</h2>
+  <div class="body">
+    <p>Un serveur et un client en ligne de commande, dans l'esprit de Microsoft Teams. Les
+      utilisateurs se connectent, créent des équipes, des canaux dans les équipes, des fils dans
+      les canaux et des réponses dans les fils, et s'envoient des messages privés. Projet de
+      2e année.</p>
+<pre class="diagram" aria-label="Hiérarchie : équipe, puis canal, puis fil, puis réponse ; à côté, les messages privés entre utilisateurs.">
+équipe
+ └── canal
+      └── fil
+           └── réponse          + messages privés entre utilisateurs</pre>
+  </div>
+</section>
+
+<section>
+  <h2>CONCEPTION</h2>
+  <div class="body">
+    <ul class="list">
+      <li><b>Une boucle <code>poll()</code>.</b> Le serveur sert tous les clients sans thread.</li>
+      <li><b>Protocole maison.</b> Commandes texte et codes de statut, décrits dans une
+        spécification de type RFC.</li>
+      <li><b>Notifications en direct.</b> Les utilisateurs abonnés à une équipe sont prévenus
+        dès qu'un canal, un fil ou une réponse y apparaît.</li>
+      <li><b>Persistance.</b> Chaque entité porte un UUID ; tout est enregistré sur disque et
+        rechargé au démarrage.</li>
+      <li><b>Contexte.</b> <code>/use</code> fixe l'équipe, le canal ou le fil courant, et
+        <code>/create</code>, <code>/list</code>, <code>/info</code> agissent dessus.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>VOIR AUSSI</h2>
+  <div class="body">
+    <p><a href="https://github.com/T3a1/network-programming/tree/main/myteams">dépôt GitHub</a>,
+      <a href="{{ '/fr/projets/zappy/' | relative_url }}">zappy(6)</a>,
+      <a href="{{ '/fr/' | relative_url }}">leandre(1)</a></p>
+  </div>
+</section>

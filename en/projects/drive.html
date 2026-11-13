@@ -1,0 +1,59 @@
+---
+lang: en
+ref: drive
+man: drive
+section: "8"
+title: Family drive
+description: Self-hosted family storage on a Raspberry Pi with OpenMediaVault, remote access over a WireGuard VPN and automatic backups.
+permalink: /en/projects/drive/
+---
+<section>
+  <h2>NAME</h2>
+  <div class="body"><p><b>drive</b> — self-hosted family storage</p></div>
+</section>
+
+<section>
+  <h2>SYNOPSIS</h2>
+  <div class="body">
+    <p class="synopsis"><b>wg-quick up</b> <span class="u">drive</span></p>
+  </div>
+</section>
+
+<section>
+  <h2>DESCRIPTION</h2>
+  <div class="body">
+    <p>A personal project. My family wanted to stop depending on an external cloud and to have
+      as much space as needed. I set up a NAS on a Raspberry Pi that everyone uses, at home or
+      away.</p>
+<pre class="diagram" aria-label="Diagram: at home, devices reach the NAS directly; away, they go through a WireGuard tunnel; the NAS is backed up automatically.">
+at home:   family devices ──────────────────────────┐
+                                                    ▼
+away:      device ══ WireGuard tunnel ══► Raspberry Pi
+                                          OpenMediaVault
+                                                    │
+                                                    ▼
+                                          automatic backups</pre>
+  </div>
+</section>
+
+<section>
+  <h2>DESIGN</h2>
+  <div class="body">
+    <ul class="list">
+      <li><b>Remote access without exposure.</b> The server is not open to the Internet: from
+        outside, it is reached through a WireGuard VPN.</li>
+      <li><b>Accounts and rights.</b> One account per family member, each with its own access
+        rights, managed in OpenMediaVault.</li>
+      <li><b>No data loss.</b> Data is backed up automatically.</li>
+    </ul>
+    <p>This project is what got me into administration: running a service other people rely on.</p>
+  </div>
+</section>
+
+<section>
+  <h2>SEE ALSO</h2>
+  <div class="body">
+    <p><a href="{{ '/en/projects/octopus/' | relative_url }}">octopus(8)</a>,
+      <a href="{{ '/en/' | relative_url }}">leandre(1)</a></p>
+  </div>
+</section>

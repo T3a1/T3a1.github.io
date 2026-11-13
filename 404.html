@@ -1,0 +1,30 @@
+---
+lang: en
+ref: "404"
+man: man
+section: "1"
+title: No manual entry
+description: This page does not exist.
+permalink: /404.html
+sitemap: false
+---
+<section>
+  <h2>NAME</h2>
+  <div class="body">
+    <p>No manual entry for <b id="missing">this page</b>.</p>
+    <p lang="fr">Aucune entrée de manuel pour cette page.</p>
+  </div>
+</section>
+
+<section>
+  <h2>SEE ALSO</h2>
+  <div class="body">
+    <p><a href="{{ '/fr/' | relative_url }}" lang="fr">leandre(1) en français</a>,
+      <a href="{{ '/en/' | relative_url }}">leandre(1) in English</a></p>
+  </div>
+</section>
+
+<script>
+  document.getElementById('missing').textContent =
+    decodeURIComponent(location.pathname.replace(/\/$/, '').split('/').pop() || 'this page');
+</script>

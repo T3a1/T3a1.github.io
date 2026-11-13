@@ -1,0 +1,72 @@
+---
+lang: fr
+ref: zappy
+man: zappy
+section: "6"
+title: Zappy
+description: Simulation multijoueur avec un serveur en C, des IA autonomes en Python et une vue 3D en C++, reliés par un protocole TCP.
+permalink: /fr/projets/zappy/
+---
+<section>
+  <h2>NOM</h2>
+  <div class="body"><p><b>zappy</b> — simulation multijoueur où des équipes d'IA s'affrontent</p></div>
+</section>
+
+<section>
+  <h2>SYNOPSIS</h2>
+  <div class="body">
+    <p class="synopsis"><b>zappy_server -p</b> <span class="u">port</span> <b>-x</b> <span class="u">largeur</span> <b>-y</b> <span class="u">hauteur</span> <b>-n</b> <span class="u">équipe</span>… <b>-c</b> <span class="u">joueurs</span> <b>-f</b> <span class="u">fréquence</span></p>
+    <p class="synopsis"><b>zappy_ai -p</b> <span class="u">port</span> <b>-n</b> <span class="u">équipe</span> <span class="opt">[<b>-h</b> <span class="u">machine</span>]</span></p>
+    <p class="synopsis"><b>zappy_gui -p</b> <span class="u">port</span> <b>-h</b> <span class="u">machine</span></p>
+  </div>
+</section>
+
+<section>
+  <h2>DESCRIPTION</h2>
+  <div class="body">
+    <p>Projet de fin de 2e année, à cinq. Sur une carte en forme de tore, des équipes d'IA
+      ramassent de la nourriture et des pierres et montent de niveau par des rituels collectifs.
+      La première équipe à amener six joueurs au niveau maximal gagne. Trois programmes
+      indépendants ne communiquent que par TCP.</p>
+<pre class="diagram" aria-label="Schéma : plusieurs zappy_ai et un zappy_gui se connectent en TCP à zappy_server.">
+zappy_ai ──┐
+zappy_ai ──┼── TCP, protocole texte ──► zappy_server ◄── TCP ── zappy_gui
+zappy_ai ──┘                             (C, poll)            (C++, raylib)</pre>
+  </div>
+</section>
+
+<section>
+  <h2>RÔLE</h2>
+  <div class="body">
+    <p>J'ai coordonné l'équipe (architecture, répartition, intégration des trois parties) et
+      écrit le serveur avec un coéquipier.</p>
+  </div>
+</section>
+
+<section>
+  <h2>CONCEPTION</h2>
+  <div class="body">
+    <ul class="list">
+      <li><b>Serveur sans thread.</b> Une seule boucle <code>poll()</code> sert tous les clients ;
+        l'état du jeu n'a donc jamais besoin de verrou.</li>
+      <li><b>Temps de jeu.</b> Chaque joueur a une file de commandes, et chaque commande dure
+        un nombre d'unités de temps fixé par la fréquence <code>-f</code>.</li>
+      <li><b>Deux protocoles.</b> Un pour les joueurs (se déplacer, regarder, ramasser, diffuser
+        un message), un pour la vue graphique, qui reçoit chaque événement en direct.</li>
+      <li><b>IA.</b> Une machine à états (survivre, ramasser, rallier, monter de niveau) ; un
+        chef est élu et appelle son équipe par messages diffusés.</li>
+      <li><b>Tests.</b> Tests unitaires du serveur avec Criterion : analyse des arguments, carte,
+        réseau, monde.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>VOIR AUSSI</h2>
+  <div class="body">
+    <p><a href="https://github.com/T3a1/zappy">dépôt GitHub</a>,
+      <a href="{{ '/fr/projets/r-type/' | relative_url }}">r-type(6)</a>,
+      <a href="{{ '/fr/projets/myteams/' | relative_url }}">myteams(1)</a>,
+      <a href="{{ '/fr/' | relative_url }}">leandre(1)</a></p>
+  </div>
+</section>

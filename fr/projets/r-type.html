@@ -1,0 +1,85 @@
+---
+lang: fr
+ref: r-type
+man: r-type
+section: "6"
+title: R-Type
+description: Jeu de tir multijoueur en réseau en C++20, avec un protocole UDP binaire, un serveur autoritaire, la prédiction et l'interpolation côté client.
+permalink: /fr/projets/r-type/
+---
+<section>
+  <h2>NOM</h2>
+  <div class="body"><p><b>r-type</b> — jeu de tir multijoueur en réseau, jusqu'à 4 joueurs</p></div>
+</section>
+
+<section>
+  <h2>SYNOPSIS</h2>
+  <div class="body">
+    <p class="synopsis"><b>./rtype.py</b> <span class="opt">[<b>--native</b>]</span> <span class="opt">[<b>-c</b> <span class="u">clients</span>]</span></p>
+    <p class="synopsis"><b>./rtype.py --server-only</b> <span class="opt">[<b>--native</b>]</span></p>
+    <p class="synopsis"><b>./rtype.py --clients-only -H</b> <span class="u">hôte</span></p>
+  </div>
+</section>
+
+<section>
+  <h2>DESCRIPTION</h2>
+  <div class="body">
+    <p>Remake en réseau du jeu d'arcade de 1987, réalisé en 3e année par une équipe de quatre.
+      Jusqu'à quatre joueurs coopèrent contre des vagues d'ennemis et des boss. Le serveur est
+      le seul juge de la partie : les clients lui envoient leurs commandes et affichent l'état
+      qu'il leur renvoie. Le jeu tourne sous Linux et Windows.</p>
+  </div>
+</section>
+
+<section>
+  <h2>RÔLE</h2>
+  <div class="body">
+    <p>J'ai posé les fondations du client, du serveur et du premier ECS, puis conçu le protocole
+      et la couche réseau. J'ai écrit l'interpolation et la prédiction côté client, les salles et
+      le lobby, la console d'administration du serveur, le chat, la fin de partie, la CI et le
+      lanceur <code>rtype.py</code>. Je suis l'auteur d'environ 140 des 340 commits.</p>
+  </div>
+</section>
+
+<section>
+  <h2>CONCEPTION</h2>
+  <div class="body">
+    <ul class="list">
+      <li><b>Protocole binaire sur UDP.</b> En-tête de 12 octets, entités sur 16 octets,
+        datagrammes de 1200 octets au plus pour éviter la fragmentation IP. Chaque champ est
+        lu et vérifié un par un : un paquet malformé est rejeté en entier.</li>
+      <li><b>Fiabilité à la demande.</b> Les événements (entrée en partie, chat, fin de partie)
+        sont numérotés et acquittés. Les snapshots et les commandes ne le sont pas : un état
+        en retard ne sert plus à rien.</li>
+      <li><b>Serveur autoritaire.</b> 60 ticks par seconde, 20 snapshots par seconde. Le réseau
+        tourne sur son propre thread et ne parle à la boucle de jeu qu'à travers des files.</li>
+      <li><b>Compensation de la latence.</b> Le client interpole entre deux snapshots et prédit
+        les déplacements du joueur. Le délai entre une touche et son affichage tombe à zéro,
+        même avec 100 ms de latence (figure ci-dessous).</li>
+      <li><b>Déploiement.</b> Le serveur est un binaire statique servi dans une image Docker
+        <code>scratch</code>, sous l'utilisateur <code>nobody</code>.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>FIGURE</h2>
+  <div class="body">
+    <figure>
+      <img src="{{ '/assets/img/r-type-delay.png' | relative_url }}" width="1080" height="480" loading="lazy"
+           alt="Diagramme en barres du délai médian entre une touche et son affichage, pour dix conditions réseau. Sans compensation et avec interpolation seule, il va de 46 à 347 ms ; avec interpolation et prédiction, il est de 0 ms partout.">
+      <figcaption>Délai médian entre une touche et son affichage sur un réseau simulé : sans
+        compensation (bleu), avec interpolation (orange), avec interpolation et prédiction (vert, 0 ms).</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <h2>VOIR AUSSI</h2>
+  <div class="body">
+    <p><a href="https://github.com/T3a1/RType-mirror">dépôt GitHub</a>,
+      <a href="https://t3a1.github.io/RType-mirror/fr/">documentation</a>,
+      <a href="{{ '/fr/projets/zappy/' | relative_url }}">zappy(6)</a>,
+      <a href="{{ '/fr/' | relative_url }}">leandre(1)</a></p>
+  </div>
+</section>

@@ -53,7 +53,7 @@
   </div>
 
   <div class="status">
-    <span class="msg" id="msg">{{ t.status | replace: "{page}", label | replace: "{line}", "1" | replace: "{total}", "1" }}</span>
+    <span class="msg" id="msg">{{ t.status | replace: "%page%", label | replace: "%line%", "1" | replace: "%total%", "1" }}</span>
     <form id="search" hidden>
       <label for="q" class="sr">{{ t.search }}</label>
       <span aria-hidden="true">/</span><input id="q" type="text" autocomplete="off" spellcheck="false">

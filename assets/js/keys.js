@@ -24,9 +24,9 @@
     const line = Math.min(total, Math.round(window.scrollY / lh) + 1);
     const atEnd = window.innerHeight + window.scrollY >= height - 2;
     msg.textContent = body.dataset.status
-      .replace('{page}', body.dataset.page)
-      .replace('{line}', line)
-      .replace('{total}', total) + (atEnd ? ' ' + body.dataset.end : '');
+      .replace('%page%', body.dataset.page)
+      .replace('%line%', line)
+      .replace('%total%', total) + (atEnd ? ' ' + body.dataset.end : '');
   }
   function flash(text) {
     note = text; update();

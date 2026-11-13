@@ -6,7 +6,7 @@ fr:
     "1": Commandes utilisateur
     "6": Jeux
     "8": Administration système
-  status: "Page de manuel {page} ligne {line}/{total} (h pour l'aide, q pour quitter)"
+  status: "Page de manuel %page% ligne %line%/%total% (h pour l'aide, q pour quitter)"
   end: (FIN)
   not_found: Motif introuvable
   copied: Adresse copiée
@@ -29,7 +29,7 @@ en:
     "1": User Commands
     "6": Games
     "8": System Administration
-  status: "Manual page {page} line {line}/{total} (press h for help or q to quit)"
+  status: "Manual page %page% line %line%/%total% (press h for help or q to quit)"
   end: (END)
   not_found: Pattern not found
   copied: Address copied
